@@ -1,0 +1,12 @@
+{
+  "name": "mylatex",
+  "version": "1.0.0",
+  "private": true,
+  "description": "수식 클립 — LaTeX 실시간 렌더링 & 원클릭 복사 (웹앱 + 크롬 확장)",
+  "scripts": {
+    "build": "node build.js",
+    "vendor": "mkdir -p extension/mathjax && npm pack mathjax@3.2.2 --silent && tar -xzf mathjax-3.2.2.tgz package/es5/tex-svg-full.js && mv package/es5/tex-svg-full.js extension/mathjax/ && rm -rf package mathjax-3.2.2.tgz",
+    "test": "node test/nl.test.js",
+    "serve": "python3 -m http.server 8080 --directory web"
+  }
+}

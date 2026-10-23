@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>수식 클립</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <span class="mark" aria-hidden="true">∫</span>
+      <div>
+        <h1>수식 클립</h1>
+        <p class="sub">입력하면 바로 렌더링, 클릭 한 번에 복사</p>
+      </div>
+    </div>
+    <div class="toggles">
+      <div class="seg" role="group" aria-label="입력 방식">
+        <button type="button" id="modeTex" class="on" aria-pressed="true">LaTeX</button>
+        <button type="button" id="modeNl" aria-pressed="false">자연어</button>
+      </div>
+      <div class="seg" role="group" aria-label="수식 형태">
+        <button type="button" id="dispBlock" class="on" aria-pressed="true">블록</button>
+        <button type="button" id="dispInline" aria-pressed="false">인라인</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="snips" id="snips" aria-label="자주 쓰는 기호"></div>
+
+  <main class="work">
+    <section class="pane">
+      <label for="src" class="lab">입력 <span class="hint" id="srcHint">LaTeX 그대로 입력 ($ 기호는 자동 제거)</span></label>
+      <textarea id="src" spellcheck="false" autocomplete="off" rows="6"></textarea>
+      <p class="nlhelp" id="nlHelp" hidden>예: <code>a over b</code>, <code>x squared</code>, <code>sqrt(x+1)</code>, <code>sum from i=1 to n of x_i</code>, <code>integral from 0 to infinity of e^(-x) dx</code>, <code>mu times F_n</code>, <code>b 분의 a</code>, <code>x 제곱</code>, <code>루트 2</code></p>
+    </section>
+
+    <section class="pane">
+      <div class="lab">미리보기 <span class="hint">흰 배경 그대로 복사됩니다</span></div>
+      <div class="preview" id="preview" aria-live="polite"><span class="wait">렌더러 불러오는 중…</span></div>
+      <p class="err" id="err" hidden></p>
+    </section>
+  </main>
+
+  <section class="out">
+    <div class="outrow">
+      <label for="code" class="lab">LaTeX 코드</label>
+      <select id="wrap" aria-label="LaTeX 복사 형식">
+        <option value="none">그대로</option>
+        <option value="inline">$ … $</option>
+        <option value="display">$$ … $$</option>
+        <option value="equation">equation 환경</option>
+      </select>
+    </div>
+    <pre class="code" id="code"></pre>
+
+    <div class="actions">
+      <button type="button" class="btn primary" id="cpTex">LaTeX 복사 <kbd class="kb" data-k="enter"></kbd></button>
+      <button type="button" class="btn" id="cpPng">이미지 복사 (PNG) <kbd class="kb" data-k="shift"></kbd></button>
+      <button type="button" class="btn" id="cpSvg">SVG 복사</button>
+      <button type="button" class="btn" id="cpMml" title="Word에 붙여넣으면 수식 개체로 들어갑니다">MathML (Word)</button>
+      <label class="scale">
+        해상도
+        <select id="scale" aria-label="PNG 배율">
+          <option value="2">2×</option>
+          <option value="4" selected>4×</option>
+          <option value="8">8×</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <section class="hist">
+    <div class="histhead">
+      <span class="lab">최근 복사</span>
+      <button type="button" class="link" id="clearHist">지우기</button>
+    </div>
+    <ul id="hist"></ul>
+  </section>
+
+  <div class="modal" id="fallback" hidden>
+    <div class="sheet">
+      <p>이 창에서는 이미지 클립보드가 막혀 있습니다. 아래 이미지를 <b>우클릭 → 이미지 복사</b> 하세요. (확장프로그램이나 일반 탭에서는 바로 복사됩니다)</p>
+      <img id="fallbackImg" alt="렌더링된 수식 이미지">
+      <button type="button" class="btn" id="closeFallback">닫기</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+</div>
+
+<script src="mj-config.js"></script>
+<script src="mathjax/tex-svg-full.js"></script>
+<script src="nl.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

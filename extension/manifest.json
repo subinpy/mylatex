@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "수식 클립",
+  "version": "1.0.0",
+  "description": "LaTeX/자연어 수식을 실시간 렌더링하고 LaTeX·PNG(흰 배경)·SVG·MathML로 바로 복사",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "수식 클립 (Alt+S)",
+    "default_icon": {
+      "16": "icons/16.png",
+      "48": "icons/48.png",
+      "128": "icons/128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/16.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Alt+S",
+        "mac": "Alt+S",
+        "linux": "Alt+S"
+      },
+      "description": "수식 클립 열기"
+    }
+  },
+  "permissions": [
+    "clipboardWrite"
+  ]
+}
